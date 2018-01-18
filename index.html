@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 </head>
 <body>
+    <h1 class="text-center">The Frogger Game</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <span>Level</span>
+                <span>Points</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="game" class="col"></div>
+        </div>
+    </div>
     <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/game.js"></script>
     <script src="js/engine.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
