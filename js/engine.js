@@ -18,6 +18,8 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
+    const BUFFER_CHAR = STEP_X / 2;
+
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
@@ -79,7 +81,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +96,17 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    function checkCollisions() {
+        allEnemies.forEach(function (enemy) {
+            if (enemy.y === player.y) {
+                console.log("enemy pos: ("+enemy.x+")");
+                if(enemy.x + BUFFER_CHAR >= player.x - BUFFER_CHAR) {
+                    player.lose();
+                }
+            }
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -119,7 +132,7 @@ var Engine = (function(global) {
             row, col;
         
         // Before drawing, clear existing canvas
-        ctx.clearRect(0,0,canvas.width,canvas.height)
+        ctx.clearRect(0,0,canvas.width,canvas.height);
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that

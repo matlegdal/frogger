@@ -1,5 +1,5 @@
 const WIDTH = 5;
-const HEIGHT = 6;
+// const HEIGHT = 6;
 const STEP_X = 101;
 const STEP_Y = 83;
 
@@ -66,7 +66,14 @@ Player.prototype.win = function () {
     this.points++;
     this.x = this.initialX;
     this.y = this.initialY;
-    console.log("You win! You now have " + this.points + " points.")
+    console.log("You win! You now have " + this.points + " points.");
+};
+
+Player.prototype.lose = function () {
+    this.points--;
+    this.x = this.initialX;
+    this.y = this.initialY;
+    console.log("You lose! You now have " + this.points + " points.");
 };
 
 Player.prototype.render = function () {
