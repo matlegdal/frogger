@@ -18,7 +18,8 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    const BUFFER_CHAR = STEP_X / 2;
+    const BUFFER_PLAYER = 25;
+    const BUFFER_ENEMY = 5;
 
     var doc = global.document,
         win = global.window,
@@ -101,8 +102,9 @@ var Engine = (function(global) {
     function checkCollisions() {
         allEnemies.forEach(function (enemy) {
             if (enemy.y === player.y) {
-                console.log("enemy pos: ("+enemy.x+")");
-                if(enemy.x + BUFFER_CHAR >= player.x - BUFFER_CHAR) {
+                if(enemy.x + STEP_X - BUFFER_ENEMY >= player.x + BUFFER_PLAYER  && enemy.x + BUFFER_ENEMY  <= player.x + STEP_X - BUFFER_PLAYER) {
+                    // console.log("enemy pos: "+enemy.x+" buffer: ("+(enemy.x + BUFFER_ENEMY)+", "+(enemy.x + STEP_X - BUFFER_ENEMY)+")");
+                    // console.log("player pos: "+player.x+" buffer: ("+(player.x + BUFFER_PLAYER)+", "+(player.x + STEP_X - BUFFER_PLAYER)+")");
                     player.lose();
                 }
             }
