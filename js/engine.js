@@ -99,12 +99,11 @@ var Engine = (function(global) {
         player.update();
     }
 
+    // This function check for collisions between enemies and the player.
     function checkCollisions() {
         allEnemies.forEach(function (enemy) {
             if (enemy.y === player.y) {
                 if(enemy.x + STEP_X - BUFFER_ENEMY >= player.x + BUFFER_PLAYER  && enemy.x + BUFFER_ENEMY  <= player.x + STEP_X - BUFFER_PLAYER) {
-                    // console.log("enemy pos: "+enemy.x+" buffer: ("+(enemy.x + BUFFER_ENEMY)+", "+(enemy.x + STEP_X - BUFFER_ENEMY)+")");
-                    // console.log("player pos: "+player.x+" buffer: ("+(player.x + BUFFER_PLAYER)+", "+(player.x + STEP_X - BUFFER_PLAYER)+")");
                     player.lose();
                 }
             }
