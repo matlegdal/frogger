@@ -40,12 +40,33 @@ Enemy.prototype.render = function() {
 
 var Player = function () {
     this.avatar = 'images/char-boy.png';
-    this.x = STEP_X*2;
-    this.y = STEP_Y*4 + STEP_Y/2;
+    this.x = this.initialX;
+    this.y = this.initialY;
+    this.points = 0;
 };
 
-Player.prototype.update = function() {
+Player.prototype.initialX = STEP_X * 2;
+Player.prototype.initialY = STEP_Y*4 + STEP_Y/2;
 
+Player.prototype.update = function() {
+    if (this.x < 0) {
+        this.x = 0;
+    } else if (this.x > STEP_X * (WIDTH -1)) {
+        this.x = STEP_X * (WIDTH -1);
+    }
+
+    if (this.y > this.initialY) {
+        this.y = this.initialY;
+    } else if (this.y < STEP_Y/2) {
+        this.win();
+    }
+};
+
+Player.prototype.win = function () {
+    this.points++;
+    this.x = this.initialX;
+    this.y = this.initialY;
+    console.log("You win! You now have " + this.points + " points.")
 };
 
 Player.prototype.render = function () {
@@ -66,7 +87,7 @@ Player.prototype.handleInput = function (dir) {
         case 'down':
             this.y += STEP_Y;
     }
-    console.log(this.x, this.y);
+    // console.log(this.x, this.y);
     // console.log("y: "+this.y);
 };
 
@@ -76,7 +97,6 @@ Player.prototype.handleInput = function (dir) {
 var allEnemies = [];
 for (var i=0; i<3; i++) {
     allEnemies.push(new Enemy());
-    // console.log(allEnemies[i].speed)
 }
 var player = new Player();
 
