@@ -1,21 +1,23 @@
 
-var insertChars = (function () {
-    chars.forEach(function (char) {
-        var img = new Image();
-        img.src = char;
-        img.classList.add("img");
-        img.addEventListener("click", function () {
-            player.avatar = char;
-            var images = document.getElementsByClassName("img");
-            for (var i = 0; i<images.length; i++) {
-                images[i].classList.remove("selected");
-            }
-            this.classList.add("selected")
-        });
-        document.getElementById("characters").appendChild(img);
+chars.forEach(function (char) {
+    var img = new Image();
+    img.src = char;
+    img.classList.add("img");
 
+    if (char === player.avatar) {
+        img.classList.add("selected");
+    }
+
+    img.addEventListener("click", function () {
+        player.avatar = char;
+        var images = document.getElementsByClassName("img");
+        for (var i = 0; i<images.length; i++) {
+            images[i].classList.remove("selected");
+        }
+        this.classList.add("selected")
     });
-})();
+    document.getElementById("characters").appendChild(img);
+});
 
 var global = this;
 document.getElementById("start").addEventListener("click", function () {

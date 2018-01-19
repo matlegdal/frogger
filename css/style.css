@@ -1,3 +1,4 @@
 .selected {
-    border: 2px solid #007bff;
+    background-color: #9fcdff;
+    border-radius: 15px 40px ;
 }
