@@ -2,7 +2,6 @@ const WIDTH = 5;
 const STEP_X = 101;
 const STEP_Y = 83;
 
-var level = 1;
 var landscape = [
     'images/stone-block.png',
     'images/water-block.png',
@@ -17,36 +16,12 @@ var chars = [
     'images/char-princess-girl.png'
 ];
 
-// Enemies our player must avoid
-var Enemy = function() {
-    this.sprite = 'images/enemy-bug.png';
-    this.x = -STEP_X;
-    this.y = (Math.floor(Math.random()*3)) * STEP_Y + STEP_Y/2;
-    this.speed = Math.floor(Math.random() * 200 * level) + 100;
-};
-
-// Update the enemy's position
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    this.x += this.speed*dt;
-
-    if (this.x > STEP_X*WIDTH) {
-        var i = allEnemies.indexOf(this);
-        allEnemies.splice(i, 1);
-        allEnemies.push(new Enemy());
-    }
-};
-
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-
 // Class Player
 var Player = function () {
     this.avatar = 'images/char-boy.png';
     this.x = this.initialX;
     this.y = this.initialY;
+    this.level = 1;
     this.points = 0;
 };
 
@@ -72,7 +47,7 @@ Player.prototype.win = function () {
     this.y = this.initialY;
 
     if (this.points >= 9) {
-        level++;
+        this.level++;
         this.points = 0;
     } else {
         this.points++;
@@ -86,11 +61,11 @@ Player.prototype.lose = function () {
     this.y = this.initialY;
 
     if (this.points < 0) {
-        if (level <= 1) {
-            level = 1;
+        if (this.level <= 1) {
+            this.level = 1;
             this.points = 0;
         } else {
-            level--;
+            this.level--;
             this.points = 9;
         }
     }
@@ -98,7 +73,7 @@ Player.prototype.lose = function () {
 };
 
 Player.prototype.updateDisplay = function () {
-    document.getElementById("level").textContent=level.toString();
+    document.getElementById("level").textContent=this.level.toString();
     document.getElementById("points").textContent=this.points.toString();
 };
 
@@ -122,11 +97,37 @@ Player.prototype.handleInput = function (dir) {
     }
 };
 
+// Class Enemy
+var Enemy = function() {
+    this.sprite = 'images/enemy-bug.png';
+    this.x = -STEP_X;
+    this.y = (Math.floor(Math.random()*3)) * STEP_Y + STEP_Y/2;
+    this.speed = Math.floor(Math.random() * 200 * player.level) + 100;
+};
+
+// Update the enemy's position
+// Parameter: dt, a time delta between ticks
+Enemy.prototype.update = function(dt) {
+    this.x += this.speed*dt;
+
+    if (this.x > STEP_X*WIDTH) {
+        var i = allEnemies.indexOf(this);
+        allEnemies.splice(i, 1);
+        allEnemies.push(new Enemy());
+    }
+};
+
+Enemy.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+
+// Instanciation of the player and of enemies
+var player = new Player();
 var allEnemies = [];
 for (var i=0; i<3; i++) {
     allEnemies.push(new Enemy());
 }
-var player = new Player();
 
 
 // This listens for key presses and sends the keys to your

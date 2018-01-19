@@ -37,5 +37,10 @@ document.getElementById("start").addEventListener("click", function () {
     game.removeChild(document.getElementById("start"));
     rowMain.removeChild(document.getElementById("instructions"));
     rowMain.removeChild(document.getElementById("characters"));
+
+    var title = document.getElementById("title");
+    title.classList.remove("display-1");
+    title.classList.add("display-4");
+
     Engine(global);
 });

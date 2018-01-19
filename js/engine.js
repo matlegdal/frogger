@@ -170,6 +170,10 @@ var Engine = (function(global) {
         player.render();
     }
 
+    function renderPoints() {
+
+    }
+
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
