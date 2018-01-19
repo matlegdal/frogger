@@ -3,6 +3,19 @@ const STEP_X = 101;
 const STEP_Y = 83;
 
 var level = 1;
+var landscape = [
+    'images/stone-block.png',
+    'images/water-block.png',
+    'images/grass-block.png',
+    'images/enemy-bug.png'
+];
+var chars = [
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png'
+];
 
 // Enemies our player must avoid
 var Enemy = function() {
@@ -55,15 +68,16 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.win = function () {
-    this.points++;
     this.x = this.initialX;
     this.y = this.initialY;
 
     if (this.points >= 10) {
         level++;
         this.points = 0;
+    } else {
+        this.points++;
     }
-    console.log("You win! Level: " + level + " Points: " + this.points);
+    this.updateDisplay();
 };
 
 Player.prototype.lose = function () {
@@ -79,9 +93,13 @@ Player.prototype.lose = function () {
             level--;
             this.points = 9;
         }
-
     }
-    console.log("You lose! Level: " + level + " Points: " + this.points);
+    this.updateDisplay();
+};
+
+Player.prototype.updateDisplay = function () {
+    document.getElementById("level").textContent=level.toString();
+    document.getElementById("points").textContent=this.points.toString();
 };
 
 Player.prototype.render = function () {
