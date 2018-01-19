@@ -6,7 +6,8 @@ var landscape = [
     'images/stone-block.png',
     'images/water-block.png',
     'images/grass-block.png',
-    'images/enemy-bug.png'
+    'images/enemy-bug.png',
+    'images/Star2.png'
 ];
 var chars = [
     'images/char-boy.png',
@@ -52,7 +53,6 @@ Player.prototype.win = function () {
     } else {
         this.points++;
     }
-    this.updateDisplay();
 };
 
 Player.prototype.lose = function () {
@@ -69,16 +69,18 @@ Player.prototype.lose = function () {
             this.points = 9;
         }
     }
-    this.updateDisplay();
-};
-
-Player.prototype.updateDisplay = function () {
-    document.getElementById("level").textContent=this.level.toString();
-    document.getElementById("points").textContent=this.points.toString();
 };
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.avatar), this.x, this.y);
+};
+
+Player.prototype.levelRender = function () {
+    for (var i = 0; i<this.level; i++) {
+        ctx.drawImage(Resources.get('images/Star2.png'), STEP_X/2 *i, 0);
+    }
+    ctx.font = "40px Times";
+    ctx.fillText(this.points.toString(), 15, 95)
 };
 
 Player.prototype.handleInput = function (dir) {
@@ -122,7 +124,7 @@ Enemy.prototype.render = function() {
 };
 
 
-// Instanciation of the player and of enemies
+// Instantiation of the player and of enemies
 var player = new Player();
 var allEnemies = [];
 for (var i=0; i<3; i++) {

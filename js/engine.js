@@ -29,6 +29,7 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 606;
+    canvas.id = 'myCanvas';
     doc.getElementById("game").appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -168,10 +169,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-    }
-
-    function renderPoints() {
-
+        player.levelRender();
     }
 
     /* This function does nothing but it could have been a good place to

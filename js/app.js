@@ -21,20 +21,8 @@ chars.forEach(function (char) {
 
 var global = this;
 document.getElementById("start").addEventListener("click", function () {
+    document.getElementById("game").removeChild(document.getElementById("start"));
     var rowMain = document.getElementById("rowMain");
-    var game = document.getElementById("game");
-
-    var level = document.createElement("DIV");
-    level.classList.add("col-2");
-    level.innerHTML='<h5>Level: <span id=\"level\">1</span></h5>';
-    rowMain.insertBefore(level, game);
-
-    var points = document.createElement("DIV");
-    points.classList.add("col-2");
-    points.innerHTML='<h5>Points: <span id="points">0</span></h5>';
-    rowMain.insertBefore(points, game);
-
-    game.removeChild(document.getElementById("start"));
     rowMain.removeChild(document.getElementById("instructions"));
     rowMain.removeChild(document.getElementById("characters"));
 
