@@ -71,7 +71,7 @@ Player.prototype.win = function () {
     this.x = this.initialX;
     this.y = this.initialY;
 
-    if (this.points >= 10) {
+    if (this.points >= 9) {
         level++;
         this.points = 0;
     } else {
